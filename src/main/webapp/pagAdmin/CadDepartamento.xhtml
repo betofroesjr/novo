@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html 	xmlns=		"http://www.w3.org/1999/xhtml"
+		xmlns:ui=	"http://java.sun.com/jsf/facelets"
+		xmlns:h=	"http://java.sun.com/jsf/html"
+		xmlns:f=	"http://java.sun.com/jsf/core"
+		xmlns:sec=	"http://www.springframework.org/security/facelets/tags"
+		xmlns:util=	"http://java.sun.com/jsf/composite/components/util"
+        xmlns:p=	"http://primefaces.org/ui">
+
+<ui:composition template="/templates/interna.xhtml">
+	<ui:define name="titulo">
+	</ui:define>
+	<ui:define name="corpo">
+		<h:form id="editar" rendered="#{permissaoCtrl.cadastro}">		
+		<p:growl id="message" showDetail="true" autoUpdate="true" closable="true" />
+		<p:panelGrid columns="2">
+			 <f:facet name="header">  
+       			 Cadastro de Departamento
+   			 </f:facet> 		            
+		            <h:outputText value="Descrição: " />
+					<p:inputText value="#{departamentoCtrl.editado.descricao}" required="true" maxlength="10"/>					
+					
+					<h:outputText value="Status: " />          	
+		            <p:selectBooleanCheckbox value="#{departamentoCtrl.editado.status}" /> 
+		            		                    	
+				</p:panelGrid>        							
+				<p:commandButton value="salvar" action="#{departamentoCtrl.salvar}"	update=":editar, :listagem" alt="Clique para Salvar um novo registro"/>
+				<p:commandButton value="limpar" action="#{departamentoCtrl.limpar}"	update=":editar" />
+				<p:commandButton value="remover" action="#{departamentoCtrl.remover}" update=":editar, :listagem" />									
+		</h:form>
+		<h:form id="listagem" rendered="#{permissaoCtrl.cadastro}">
+		<h:panelGrid >
+			<h:panelGroup>
+				<p:dataTable scrollable="false" rendered="#{!empty departamentoCtrl.lista}" value="#{departamentoCtrl.lista}" 
+					var="lista" rowIndexVar="index"	paginator="true" rows="10" 
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
+					{PageLinks} {NextPageLink} {LastPageLink}">
+					<f:facet name="header">  
+		            	Lista de Dados Cadastrados 
+		        	</f:facet> 
+					<p:column width="8" rendered="true">
+						<p:commandLink width="10" action="#{departamentoCtrl.alterar}" update=":editar">
+							<h:graphicImage library="imagens" name="editar16.png"/>
+							<f:setPropertyActionListener target="#{departamentoCtrl.editado}" value="#{lista}"/>
+						</p:commandLink>
+					</p:column>
+					<p:column width="8" rendered="true" >
+						<p:commandLink action="#{departamentoCtrl.remover}" update=":listagem"
+							onclick="if (!confirm('Confirma a exclusão #{lista.descricao}?'))return false;">
+							<h:graphicImage library="imagens" name="excluir16.png"/>
+							<f:setPropertyActionListener target="#{departamentoCtrl.editado}" value="#{lista}"/>
+						</p:commandLink>
+					</p:column>
+					<p:column width="60"  headerText="Descrição" sortBy="#{lista.descricao}" >
+						<h:outputText value="#{lista.descricao}"/>
+					</p:column>			
+					<p:column width="100" sortBy="#{lista.data}" headerText="Data" >				
+						<h:outputText value="#{lista.data}">
+							<f:convertDateTime dateStyle="medium"/>
+						</h:outputText>	
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+		</h:panelGrid>
+	</h:form>
+	</ui:define>
+</ui:composition>
+</html>

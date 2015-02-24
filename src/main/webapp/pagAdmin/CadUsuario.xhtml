@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html 	xmlns=		"http://www.w3.org/1999/xhtml"
+		xmlns:ui=	"http://java.sun.com/jsf/facelets"
+		xmlns:h=	"http://java.sun.com/jsf/html"
+		xmlns:f=	"http://java.sun.com/jsf/core"
+		xmlns:sec=	"http://www.springframework.org/security/facelets/tags"
+		xmlns:util=	"http://java.sun.com/jsf/composite/components/util"
+        xmlns:p=	"http://primefaces.org/ui">
+
+<ui:composition template="/templates/interna.xhtml">
+	<ui:define name="titulo">
+	</ui:define>
+	<ui:define id="corpo" name="corpo">
+		<h:form id="formGeral" rendered="#{permissaoCtrl.cadusuario}">
+			<p:growl id="message" showDetail="true" autoUpdate="true" closable="true" />
+			<h:inputHidden value="#{usuarioCtrl.editado.id}" />
+			<center style="height: 100%;">	
+			<p:tabView id="tabView" dynamic="true" cache="true"
+				style="width:99%; height:101%; margin-top: 11px; background-color: lightblue;">
+				<p:ajax event="tabChange" listener="#{usuarioCtrl.onTabChange}" immediate="true"/>
+				<p:tab id="tab01" title="Cadastro" style="height:100%">
+					<p:panelGrid id="editar" columns="3" style="width:100%; height:100%; font: normal 15px arial,sans-serif">
+						<f:facet name="header">  
+		       				 Manutenção dos Usuários 
+		   			 	</f:facet>
+		   			 	
+		   			 	<h:outputText value="Nome Completo: " />
+						<p:inputText id="nomecomp" value="#{usuarioCtrl.editado.nomeCompleto}" style="width: 600px;"/>
+						<p:message for="nomecomp"/>
+						
+						<h:outputText value="Login: " />
+						<p:inputText id="login" value="#{usuarioCtrl.editado.login}" disabled="false"
+							maxlength="15" style="width: 200px;"/>	
+						<p:message for="login"/>
+							
+						<h:outputText value="Senha: " />
+						<p:inputText id="senha" value="#{usuarioCtrl.editado.senha}" disabled="false"
+							maxlength="15" style="width: 200px;"/>	
+						<p:message for="senha"/>
+							
+						<h:outputText value="CPF: " />
+						<p:inputMask id="cpf" mask="999.999.999-99" value="#{usuarioCtrl.editado.cpf}" style="width: 200px;"/>
+						<p:message for="cpf"/>
+						
+						<h:outputText value="Email: " />
+						<p:inputText id="email" value="#{usuarioCtrl.editado.email}" style="width: 200px;"/>
+						<p:message for="email"/>
+									
+						<h:outputText value="Status: " />
+				        <p:selectOneMenu id="status" label="Status do Projeto" value="#{usuarioCtrl.editado.status}"
+				        	style="width:200px" requiredMessage="Selecionar uma opção."> 
+				            <f:selectItem itemLabel="Escolha" itemValue="-1"/>
+				            <f:selectItem itemLabel="Ativo" itemValue="0"/>
+				            <f:selectItem itemLabel="Inativo" itemValue="1"/>
+				            <p:ajax process="@(this)"/>
+				        </p:selectOneMenu>
+				        <p:message for="status"/>
+				        
+				        <h:outputText value="Selecionar Tipo Administrativo: " />
+						<p:selectBooleanCheckbox id="tipoadm" value="#{usuarioCtrl.editado.tipoAdm}" />
+						<p:message for="tipoadm"/>
+						
+						<h:outputText value="Tipo Usuário: " />				
+						<p:selectOneMenu id="tipoUsuario" value="#{usuarioCtrl.editado.tipoUsuario}" effect="fold" 
+			        		var="p" style="width:600px" filter="true" filterMatchMode="startsWith" panelStyle="width:150px" converter="#{tipoUsuarioConversor}"
+			        		requiredMessage="Selecionar uma opção.">
+				        	<f:selectItem itemLabel="Selecione um Tipo Usuário" itemValue="" />
+				        	<f:selectItems value="#{usuarioCtrl.listaTipoUsuario}" var="tipouser" itemLabel="#{tipouser.descricao}" itemValue="#{tipouser}"/>
+				        	<p:column>
+				        		#{p.descricao}
+				        	</p:column>
+				        <f:validateRequired disabled="#{empty param['formGeral:tabView:descricao']}" for="tipoUsuario"/>
+				    	<p:ajax process="@(this)" update="@(#tab01)"/>			            
+			        	</p:selectOneMenu>
+			        	<p:message for="tipoUsuario"/>	
+							
+					</p:panelGrid>
+					<p:commandButton id="botaoSalvarAlterar" value="#{usuarioCtrl.valorBotao}" action="#{usuarioCtrl.salvar}" update=":formGeral:message,@(#formGeral)"/>										
+					<p:commandButton rendered="#{usuarioCtrl.permissaoExcluir}" value="Excluir" action="#{usuarioCtrl.remover}" update=":formGeral:message,@(#formGeral)" 
+						onclick="if (!confirm('Confirma a exclusão #{lista.login}?'))return false;"/>											
+					<p:commandButton value="Limpar" action="#{usuarioCtrl.resetPagina}" immediate="true" process="@(this)" update="@(#formGeral)"/>
+					<p:commandButton value="Visualizar" action="#{usuarioCtrl.acaoGeraRelatorio}" immediate="true" ajax="false"/>
+				</p:tab>
+				<p:tab id="tab02" title="Listar">
+					<h:panelGrid style="height:100%" >
+						<h:panelGroup style="height:100%" >
+							<p:dataTable 	scrollable="false"										rendered="#{!empty usuarioCtrl.lista}" 
+											value="#{usuarioCtrl.lista}"							var="lista" 
+											paginator="true" 										rows="10" 
+											style="height:100%; font: normal 15px arial,sans-serif"	paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+											rowsPerPageTemplate="5,10,15" 							currentPageReportTemplate="(Pag. {currentPage}/{totalPages} - {totalRecords} registros)" 
+											emptyMessage="Não existem Usuário cadastrado para o parâmetro informado."
+											selectionMode="single" selection="#{usuarioCtrl.editado}" rowKey="#{lista.id}">																				
+								<f:facet name="header"> 
+					            	Lista de Dados Cadastrados 
+					        	</f:facet>
+					        	<p:ajax event="rowSelect" listener="#{usuarioCtrl.onRowSelect}" update=":formGeral:message,@(#formGeral)" />
+        						<p:ajax event="rowUnselect" listener="#{usuarioCtrl.onRowUnselect}" update=":formGeral:message" />
+					        	<p:column width="500"  headerText="Nome" sortBy="#{lista.nomeCompleto}" filterBy="#{lista.nomeCompleto}" filterMatchMode="contains" filterStyle="width:50%" >
+									<h:outputText value="#{lista.nomeCompleto}" style="width:100%"/>
+								</p:column>	       		       									        				
+								<p:column width="500"  headerText="Login" sortBy="#{lista.login}" filterBy="#{lista.login}" filterMatchMode="contains" filterStyle="width:50%" >
+									<h:outputText value="#{lista.login}" style="width:100%"/>
+								</p:column>	
+								<p:column width="80" sortBy="#{lista.status}" headerText="Status" style="width:50%">				
+									<h:outputText rendered="#{lista.status == 1}" value="Inativo"/>
+									<h:outputText rendered="#{lista.status == 0}" value="Ativo"/>									
+								</p:column>																
+							</p:dataTable>
+						</h:panelGroup>
+					</h:panelGrid>		
+				</p:tab>
+			</p:tabView>
+			</center>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

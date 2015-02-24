@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="crudJMPU" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<non-jta-data-source>java:jboss/datasources/PostgresqlDS</non-jta-data-source>
+		<class>com.model.entidades.seguranca.Auditoria</class>
+		<class>com.model.entidades.seguranca.InterligaLogSistemas</class>
+		<class>com.model.entidades.seguranca.LogSistema</class>
+		<class>com.model.entidades.base.Usuario</class>
+		<class>com.model.entidades.seguranca.TipoUsuario</class>
+		<class>com.model.entidades.seguranca.Permissao</class>
+		<class>com.model.entidades.base.Bairro</class>
+		<class>com.model.entidades.base.Cidade</class>
+		<class>com.model.entidades.base.EnderecoCepUnicoPesquisa</class>
+		<class>com.model.entidades.base.EnderecoPesquisa</class>
+		<class>com.model.entidades.base.Estado</class>
+		<class>com.model.entidades.base.Fornecedor</class>
+		<class>com.model.entidades.base.Logradouro</class>
+		<class>com.model.entidades.base.Pessoa</class>
+		<class>com.model.entidades.base.Telefone</class>
+		<class>com.model.entidades.base.TipoFornecedor</class>
+		<class>com.model.entidades.base.TipoPessoa</class>
+		<class>com.model.entidades.base.TipoServicoAutomotivo</class>
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.connection.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />	
+			<property name="hibernate.transaction.auto_close_session" value="false"/>	
+			<!-- <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/carregar-dados.sql"/>	 -->
+     <!-- 		<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" /> 
+		 	<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup" />
+			<property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/> -->    			 
+		 </properties>	
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html 	xmlns=		"http://www.w3.org/1999/xhtml"
+		xmlns:ui=	"http://java.sun.com/jsf/facelets"
+		xmlns:h=	"http://java.sun.com/jsf/html"
+		xmlns:f=	"http://java.sun.com/jsf/core"
+		xmlns:sec=	"http://www.springframework.org/security/facelets/tags"
+		xmlns:util=	"http://java.sun.com/jsf/composite/components/util"
+        xmlns:p=	"http://primefaces.org/ui">
+
+<ui:composition template="/templates/interna.xhtml" rendered="#{permissaoCtrl.cadastro}">
+	<ui:define name="titulo">
+	</ui:define>	
+	<ui:define name="corpo">
+	<h:form id="formGeral">
+		<p:growl id="message" showDetail="true" autoUpdate="true" closable="false" globalOnly="false"/>				
+		<h:inputHidden value="#{tipoUsuarioCtrl.editado.id}" />
+		<center style="height:100%">
+		<p:tabView id="tabView" dynamic="true" cache="true" activeIndex="#{tipoUsuarioCtrl.currentTab}"
+			 style="width:99%; height:100%; margin-top: 12px; background-color: lightblue;">
+			<p:ajax event="tabChange" listener="#{tipoUsuarioCtrl.onTabChange}" immediate="true"/>
+			<p:tab id="tab01" title="Cadastro" rendered="true" style="width:100%; height:100%">								
+				<p:panelGrid columns="3" style="width:100%; height:100%; font: normal 15px arial,sans-serif">
+					<f:facet name="header">  
+	       			 	Cadastro de Tipo de Usuario
+	   			 	</f:facet> 		            
+		            <h:outputText value="Descrição: " />
+					<p:inputText id="descricao" value="#{tipoUsuarioCtrl.editado.descricao}" maxlength="100" style="width: 600px;"
+						required="true" requiredMessage="Campo não pode ficar em branco.">											
+						<p:ajax event="blur"/>
+					</p:inputText>
+					<p:message for="descricao"/>																					
+					
+					<h3 style="margin-top: 0">Lista de Permissão</h3>
+    				<p:pickList id="pickList" value="#{tipoUsuarioCtrl.listaPermissoes}" var="permissao" itemLabel="#{permissao}" itemValue="#{permissao}" addLabel="#{tipoUsuarioCtrl.listaPermissoes}"/>      					       
+					<p:message for="pickList"/>          		           
+				</p:panelGrid>   					
+					<p:commandButton value="#{tipoUsuarioCtrl.valorBotao}" action="#{tipoUsuarioCtrl.salvar}" process="@(#tab01)" update=":formGeral:message,@(#formGeral)"/>										
+					<p:commandButton rendered="#{tipoUsuarioCtrl.permissaoExcluir}" value="Excluir" action="#{tipoUsuarioCtrl.remover}" update=":formGeral:message,@(#formGeral)"
+						onclick="if (!confirm('Confirma a exclusão #{lista.descricao}?'))return false;"/>											
+					<p:commandButton value="Limpar" action="#{tipoUsuarioCtrl.resetPagina}" immediate="true" update="@(#formGeral)"/>			
+			</p:tab >
+			<p:tab id="tab02" title="Consulta" rendered="true" style="height:100%; width:100%">					
+					<h:panelGrid style="height:100%; width:100%" >
+						<h:panelGroup style=" height:100%; width:100%">
+							<p:dataTable scrollable="false" 							rendered="#{!empty tipoUsuarioCtrl.lista}" 
+										value="#{tipoUsuarioCtrl.lista}"	var="lista" rowIndexVar="index"					
+										paginator="true"								rows="10" 
+										style=" height:100%; 							font: normal 15px arial,sans-serif"
+										paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+										rowsPerPageTemplate="5,10" 					currentPageReportTemplate="(Pag. {currentPage}/{totalPages} - {totalRecords} registros)" 
+										emptyMessage="Não existem Objetivo cadastrado para o parâmetro informado.">							
+								<f:facet name="header">  
+					            	Lista de Dados Cadastrados de Objetivos de Atendimento Social
+					        	</f:facet> 							
+								<p:column width="1000"  headerText="Descrição do Tipo Usuario" sortBy="#{lista.descricao}" filterBy="#{lista.descricao}" filterMatchMode="contains" filterStyle="width:50%">
+									<h:outputText value="#{lista.descricao}" style="width:100%"/>
+								</p:column>
+								
+								<p:column width="40" rendered="true" headerText="Editar">
+									<p:commandLink width="10" action="#{tipoUsuarioCtrl.alterar}" process="@(#tab02)" update=":formGeral:message,@(#formGeral)">									
+										<h:graphicImage library="imagens" name="editar16.png"/>
+										<f:setPropertyActionListener target="#{tipoUsuarioCtrl.editado}" value="#{lista}"/>
+									</p:commandLink>
+								</p:column>						
+							</p:dataTable>
+						</h:panelGroup>
+					</h:panelGrid>		
+			</p:tab>
+		</p:tabView>
+		</center>
+	</h:form>
+	</ui:define>
+</ui:composition>
+</html>

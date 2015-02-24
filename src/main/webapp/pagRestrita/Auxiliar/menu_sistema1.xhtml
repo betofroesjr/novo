@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns=		"http://www.w3.org/1999/xhtml"
+		xmlns:ui=	"http://java.sun.com/jsf/facelets"
+		xmlns:h=	"http://java.sun.com/jsf/html"
+		xmlns:f=	"http://java.sun.com/jsf/core"
+       	xmlns:p=	"http://primefaces.org/ui"	>
+       	
+<ui:composition>
+	<h:form>
+	    <p:panelMenu style="width:100%">
+	        <p:submenu label="Configurações" rendered="#{permissaoCtrl.cadastro}">
+                <p:menuitem value="Manutenção Usuario" url="/pagAdmin/CadUsuario.jsf" rendered="#{permissaoCtrl.cadusuario}"/>
+                <p:menuitem value="Configuração Gerais" url="/pagAdmin/CadConfiguracoesSistema.jsf" rendered="#{permissaoCtrl.cadusuario}"/>
+                <p:menuitem value="Tipo Usuario" url="/pagAdmin/CadTipoUsuario.jsf"  rendered="#{permissaoCtrl.cadtipousuario}"/>
+<!--            <p:menuitem value="Alterar Permissões" url="/pagAdmin/AlterPermissoes.jsf" rendered="#{permissaoCtrl.alterpermissoes}"/> -->
+			</p:submenu>
+			<p:submenu label="Cadastros Base" rendered="#{permissaoCtrl.servicosbase}">
+				<p:submenu label="Manutenção Dados" rendered="#{permissaoCtrl.manutencaoDados}">	                
+	                <!-- <p:menuitem value="Tipo Atendimento" url="/pagRestrita/CadTipoAtendimento.jsf" rendered="#{permissaoCtrl.novotipoatendimento}"/> -->
+				</p:submenu>																			
+	        </p:submenu>
+   			<p:submenu label="Desenvolvedor" rendered="#{permissaoCtrl.validarUsuarioAdmin}">
+	            <p:menuitem value="Menu do Desenvolvedor" url="/pagDensenvolvedor/Uteis/UsarParaTestes.jsf" rendered="true"/>	            
+	        </p:submenu>
+	        <p:submenu label="Ajuda" >
+	            <p:menuitem value="Ajuda em Desenvolvimento" url="#" />	            
+	        </p:submenu>
+	
+	        <p:menuitem value="Sair" action="#{loginControlador.sair}" icon="ui-icon-close" />
+	        		      
+	    </p:panelMenu>
+	    <p:panelMenu autoDisplay="false">
+	    </p:panelMenu>
+	</h:form>
+</ui:composition>
+</html>

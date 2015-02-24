@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>
+		<ui:insert name="titulo"></ui:insert>
+	</title>
+
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputScript name="componenteDataEmPortugues.js" library="js" target="body" rendered="true"/> 
+    <h:outputScript name="jquery-1.11.1.min.js"         library="js" target="head" rendered="true"/> 
+    <h:outputScript name="jquery.maskMoney.js"          library="js" target="head" rendered="true"/>
+    <h:outputScript name="script.js"                    library="js" target="head" rendered="true"/>
+	<style type="text/css">
+		.coluna1 {
+			width: 80%;
+			height: auto
+		}
+		
+		.coluna2 {
+			width: 20%;
+			height: auto
+		}
+		
+		.coluna3 {
+			width: 95%;
+			height: auto;
+			text-align: center !important;
+		}
+		
+		.coluna4 {
+			width: 5%;
+			height: auto
+		}
+	</style>
+</h:head>
+<h:body>
+    <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+	<p:dialog modal="true" widgetVar="statusDialog" draggable="false" closable="false" resizable="false" showHeader="false">
+		<p:graphicImage library="imagens" name="loading44.gif"/>
+	</p:dialog>	
+	
+	<p:layout fullPage="true">
+		<p:layoutUnit id="layoutTopo" position="north" size="85">
+			<p:panelGrid columnClasses="coluna1, coluna2"
+				style="width:100%; height:100%;">
+				<p:row>
+					<p:column>
+						<a href="/controletotalmecanica/"> 
+							<h:graphicImage library="imagens" name="carros.png" />
+							<h:graphicImage library="imagens" name="carro21.png" />
+							<h:graphicImage library="imagens" name="carro2.png" />
+						</a>
+					</p:column>
+					<p:column>
+						<p:outputLabel style="color: gray; font-size: 13px !important;"
+							value="Usuário logado: ">
+							<p:outputLabel style="color: blue; font-size: 13px !important;"
+								value="#{loginControlador.usuario.nomeCompleto != null ? loginControlador.usuario.nomeCompleto : loginControlador.usuario.login}" />
+							<br />
+							<p:outputLabel style="color: gray; font-size: 13px !important;"
+								value="Tipo de usuário: " />
+							<p:outputLabel style="color: blue; font-size: 13px !important;"
+								value="#{loginControlador.usuario.tipoUsuario.descricao}" />
+							<br />							
+						</p:outputLabel>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="menuSistema1" styleClass="ui-collapsible" position="west" size="20%"
+			header="&nbsp;" resizable="false" closable="false" collapsible="true" >
+			<center>
+				<ui:include src="/pagRestrita/Auxiliar/menu_sistema1.xhtml" />
+			</center>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="corpoPrincipal" styleClass="ui-layout" position="center" style="width:100%; height:100%;">
+			<center>
+				<ui:insert name="corpo" />
+			</center>
+		</p:layoutUnit>
+
+		<p:layoutUnit styleClass="ui-layout" position="south">
+			<p:panelGrid columns="2" columnClasses="coluna3, coluna4"
+				style="width:100%; height:100%;">
+				<p:outputLabel style="color: gray; font-size: 13px !important;"
+					value="">
+					<br></br>
+					<p:outputLabel style="color: gray; font-size: 13px !important;"
+						value="" />
+				</p:outputLabel>
+				<h:form>	
+					<p:poll interval="#{loginControlador.contadorInatividade}" listener="#{loginControlador.inatividade}" update="@(all)"/>
+					<p:commandButton value="Sair" icon="ui-icon-extlink" type="submit"
+						immediate="true" action="#{loginControlador.sair}" />
+				</h:form>
+			</p:panelGrid>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
+		
+	<!-- 	
+	<div id="container">
+		<div id="titulo">
+			<ui:insert name="titulo1"></ui:insert>
+		</div>
+		<div id="logotipo">
+			<a href="../index.html">
+				<h:graphicImage library="imagens" name="logo-350x128.png" width="200" height="80"/>
+			</a>
+		</div>
+		<div id="barra_menu">
+			<ui:insert name="barra_menu">
+				<ui:include src="/pagAdmin/menu_sistema.xhtml"/>
+			</ui:insert>
+		</div>
+		<div id="corpo">				
+			<div id="corpo_interno">
+				<span id="identificacao_usuario">Usuário logado: #{loginControlador.usuario.login}</span>
+				<span><p:clock pattern="HH:mm:ss dd.MM.yyyy" /></span>
+			</div>			
+			<ui:insert name="corpo"/>
+		</div>
+		<div id="rodape">
+			<ui:insert name="rodape">
+				<ui:include src="/pagUser/rodape.xhtml"/>
+			</ui:insert>
+		</div>
+	</div>
+ -->

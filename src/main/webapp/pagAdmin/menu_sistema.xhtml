@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns=		"http://www.w3.org/1999/xhtml"
+		xmlns:ui=	"http://java.sun.com/jsf/facelets"
+		xmlns:h=	"http://java.sun.com/jsf/html"
+		xmlns:f=	"http://java.sun.com/jsf/core"
+       	xmlns:p=	"http://primefaces.org/ui">
+<ui:composition>
+	<h:form>
+	    <p:menubar>
+	        <p:submenu label="Cadastros" icon="ui-icon-document" rendered="#{permissaoCtrl.cadastro}">
+	            <p:submenu label="Configurações" icon="ui-icon-contact">
+	                <p:menuitem value="Manutenção Usuario" url="/pagAdmin/CadUsuario.jsf" icon="ui-icon-contact" rendered="#{permissaoCtrl.cadusuario}"/>
+	                <p:menuitem value="Tipo Usuario" url="/pagAdmin/CadTipoUsuario.jsf" icon="ui-icon-contact" rendered="#{permissaoCtrl.cadtipousuario}"/>
+	                <p:menuitem value="Departamento" url="/pagAdmin/CadDepartamento.jsf" rendered="#{permissaoCtrl.caddepartamento}"/>
+	                <p:menuitem value="Alterar Permissões" url="/pagAdmin/AlterPermissoes.jsf" rendered="#{permissaoCtrl.alterpermissoes}"/>
+	            </p:submenu>
+	            <p:separator />
+	            <p:submenu label="Cadastro Base" icon="ui-icon-gear" rendered="#{permissaoCtrl.servicosbase}">
+	                <p:menuitem value="Projeto" url="/pagRestrita/CadProjeto.jsf" rendered="#{permissaoCtrl.novoprojeto}"/>
+	                <p:menuitem value="Objetivo" url="/pagRestrita/CadObjetivo.jsf" rendered="#{permissaoCtrl.novoobjetivo}"/>
+	                <p:menuitem value="Meta" url="/pagRestrita/CadMeta.jsf" rendered="#{permissaoCtrl.novameta}"/>
+	                <p:menuitem value="Tipo Atendimento" url="/pagRestrita/CadTipoAtendimento.jsf" rendered="#{permissaoCtrl.novotipoatendimento}"/>
+	                <p:menuitem value="Tabelas de Desconto" url="/pagRestrita/CadTabelaDesconto.jsf" rendered="#{permissaoCtrl.tabelaDesconto}"/>
+	                <p:menuitem value="Tipo Serviço Automotivo" url="/pagRestrita/CadServicoAutomotivo.jsf" rendered="#{permissaoCtrl.cadServicoAutomotivo}"/>
+	                <p:submenu label="Instituições de Ensino e Cursos" rendered="#{permissaoCtrl.servicosbase}">	               
+	                	<p:menuitem value="Cadastro de Instituição de Ensino" url="/pagRestrita/Bolsa_Estudantil/CadInstituicaoEnsino.jsf" rendered="#{permissaoCtrl.cadInstituicaoEnsino}"/>
+	                	<p:separator />
+	                	<p:menuitem value="Cadastro de Tipo de Curso" url="/pagRestrita/Bolsa_Estudantil/CadTipoCurso.jsf" rendered="#{permissaoCtrl.cadTipoCurso}"/>
+	                	<p:separator />
+	                	<p:menuitem value="Cadastro de Curso" url="/pagRestrita/Bolsa_Estudantil/CadCurso.jsf" rendered="#{permissaoCtrl.cadCurso}"/>
+	                </p:submenu>
+	            </p:submenu>          	       	            	           
+	        </p:submenu>
+	
+	        <p:submenu label="Geral" icon="ui-icon-pencil" rendered="#{permissaoCtrl.atendimentosocial}">
+	        	<p:submenu label="Atendimento Social" icon="ui-icon-pencil" >					       
+	            	<p:menuitem value="Novo Atendimento Social" url="/pagRestrita/Atendimento_Social/CadAtendimentoSocial.jsf" icon="ui-icon-document" rendered="#{permissaoCtrl.atendimentosocial}"/>
+	            	<p:menuitem value="Cadastro de Bolsa Estudantil" url="/pagRestrita/Bolsa_Estudantil/CadBolsaEstudantil.jsf" rendered="#{permissaoCtrl.cadBolsaEstudantil}"/>	            	        	
+	        	</p:submenu>
+	        </p:submenu>
+			<p:submenu label="Ajuda" icon="ui-icon-help" rendered="true">
+	            <p:menuitem value="Menu do Desenvolvedor" url="/pagRestrita/Atendimento_Social/teste.jsf" />	            
+	        </p:submenu>
+	        <p:submenu label="Ajuda" icon="ui-icon-help">
+	            <p:menuitem value="Ajuda em Desenvolvimento" url="#" />	            
+	        </p:submenu>
+	
+	        <p:menuitem value="Sair"
+	        			action="#{loginControlador.sair}"
+						icon="ui-icon-close" />		      
+	    </p:menubar>
+	    <p:menubar autoDisplay="false">
+	    </p:menubar>
+	</h:form>
+</ui:composition>
+</html>

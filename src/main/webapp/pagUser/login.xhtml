@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns=		"http://www.w3.org/1999/xhtml"
+		xmlns:ui=	"http://java.sun.com/jsf/facelets"
+		xmlns:h=	"http://java.sun.com/jsf/html"
+        xmlns:p=	"http://primefaces.org/ui"
+        xmlns:f=	"http://java.sun.com/jsf/core">
+
+<ui:composition template="/templates/principal.xhtml">
+	<ui:define name="corpo"> 
+	
+		<h:panelGroup rendered="#{!empty param.login_error}">
+			<span style="font-color:red"> Erro ao efetuar login.</span><br/>
+			<br/>
+			Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
+		</h:panelGroup>	
+		<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
+		
+		<p:dialog id="dialog" header="Login" visible="true">  
+       	 <h:panelGrid columns="2" cellpadding="5">  
+            <h:outputLabel for="username" value="Login:" />  
+            <p:inputText value='j_password'   
+                    id="username" required="true" label="j_password" />  
+              
+            <h:outputLabel for="password" value="Senha:" />  
+            <h:inputSecret value="#{loginBean.password}"   
+                    id="password" required="true" label="password" />  
+              
+            <f:facet name="footer">  
+                <p:commandButton id="loginButton" value="Login" update="growl"   
+                    actionListener="#{loginBean.login}"   
+                    oncomplete="handleLoginRequest(xhr, status, args)"/>  
+            </f:facet>
+            <table>					
+				<tr><td align="right"><input type="checkbox" name="_spring_security_remember_me"/></td>
+					<td>Entrar automaticamente</td></tr>
+				<tr><td></td>
+					<td><input type="submit" value="Entrar"/></td>
+				</tr>
+			</table> 
+        </h:panelGrid>  
+    </p:dialog>  
+		
+		
+		<script>
+			document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
+		</script>
+		</form>
+	</ui:define>
+</ui:composition>	
+</html>

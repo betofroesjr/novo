@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html >
+<html 	xmlns=		"http://www.w3.org/1999/xhtml"
+		xmlns:ui=	"http://java.sun.com/jsf/facelets"
+		xmlns:h=	"http://java.sun.com/jsf/html"
+       xmlns:p=		"http://primefaces.org/ui"
+       xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/templates/principal.xhtml">
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<meta http-equiv="expires" content="0" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="pragma" content="no-cache" />
+	<ui:define name="titulo">		
+		Controle Oficina Mecanica
+	</ui:define>
+	<ui:define name="corpo">
+		<h:body onload="PF('login').show()">			
+			<p:dialog widgetVar="login" modal="true" closable="false"
+				resizable="false" position="center" minHeight="600"
+				maximizable="false" showEffect="fade" hideEffect="explode"
+				showHeader="false" draggable="false" styleClass="loginDialog">	
+				<f:ajax/>			
+				<h:form id="formUsuario" prependId="false">					
+					<h:panelGrid id="painelLogin">
+						<p:focus context="painelLogin" />
+						<p:graphicImage width="249" styleClass="logoLogin" />
+						<h:outputText value="Login: " />
+						<p:inputText id="usuario" tabindex="1"
+							value="#{loginControlador.usuario.login}" required="true"
+							requiredMessage="Campo obrigatorio" update="messages"
+							styleClass="inputLogin" >
+							<p:watermark for="usuario" value="Usuário"></p:watermark>
+						</p:inputText>
+						<h:outputText value="Senha: " />						
+						<p:password styleClass="inputLogin" tabindex="2" id="senha" 
+							value="#{loginControlador.usuario.senha}" maxlength="23"
+							required="true" requiredMessage="Campo obrigatorio"
+							update="messages">
+							<p:watermark for="senha" value="Senha"></p:watermark>							
+						</p:password>
+						<br/>
+						<p:commandButton id="entrar" tabindex="3" styleClass="loginBotao" ajax="false" value="Entrar" action="#{loginControlador.logar}" update=":formUsuario" />
+					</h:panelGrid>
+				</h:form>				
+			</p:dialog>
+		</h:body>
+	</ui:define>
+</ui:composition>	
+</html>

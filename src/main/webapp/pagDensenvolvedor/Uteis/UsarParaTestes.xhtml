@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html 	xmlns=		"http://www.w3.org/1999/xhtml"
+		xmlns:ui=	"http://java.sun.com/jsf/facelets"
+		xmlns:h=	"http://java.sun.com/jsf/html"
+		xmlns:f=	"http://java.sun.com/jsf/core"
+		xmlns:sec=	"http://www.springframework.org/security/facelets/tags"
+		xmlns:util=	"http://java.sun.com/jsf/composite/components/util"
+        xmlns:p=	"http://primefaces.org/ui">
+
+<ui:composition template="/templates/interna.xhtml">
+	<ui:define name="titulo">
+	</ui:define>
+	<ui:define id="corpo" name="corpo">
+		<h:form id="formGeral">
+			<p:panelGrid columns="2" style="font: normal 15px arial,sans-serif" styleClass="ui-responsive">
+				<f:facet name="header" >  
+		       			 	Manutenção da Aplicação Tela para incluir informações iniciais diretamente no banco
+   			 	</f:facet>
+				<h:outputText value="Inserir todas as permissões na aplicação: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.permissoes}"/>
+				
+				<h:outputText value="Inserir todas as Informações do Atendimento Social: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.informacoesAtendimentoSocial}"/>
+				
+				<h:outputText value="Inserir cadastro Tipos Doação: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.cadastroTiposDoacao}"/>
+				
+				<h:outputText value="Inserir cadastro Cursos: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.cadastroCurso}"/>
+				
+				<h:outputText value="Inserir cadastro Instituições de Ensino: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.cadastroInstituicoesEnsino}"/>
+				
+				<h:outputText value="Inserir cadastro Tipos de Curso: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.cadastroTiposCurso}"/>
+				
+				<h:outputText value="Inserir cadastro Padrões de Status: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.cadastroPadroesStatus}"/>
+				
+				<h:outputText value="Inserir cadastro Patentes: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.cadastroPatentes}"/>
+				
+				<h:outputText value="EXECUTAR TODOS - CUIDADO evite utilizar: " />
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.executarTodosOsScripts}"/>
+				
+				<p:inputTextarea id="scriptManual" rows="10" cols="150" maxlength="2000" autoResize="false" value="#{inserirInformacoesIniciais.retornoScriptManual}">
+					<p:ajax event="blur" />
+				</p:inputTextarea>
+				<p:commandButton value="EXECUTAR" actionListener="#{inserirInformacoesIniciais.executarScript}"/>
+				<p:outputLabel  value="#{inserirInformacoesIniciais.retornoScriptManual}"/>
+				
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
