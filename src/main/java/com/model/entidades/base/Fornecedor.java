@@ -15,6 +15,7 @@ public class Fornecedor extends Auditoria{
 	private static final long serialVersionUID = -6606926371961543456L;
 	private String descricao;
 	private String cnpj;
+	private Integer status;
 	
 	@ManyToOne(cascade={CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name="id_tipofornecedor")
@@ -27,13 +28,17 @@ public class Fornecedor extends Auditoria{
 		this.dados_Tipo_Fornecedor = new TipoFornecedor();
 	}
 	
-	public Fornecedor(String descricao, String cnpj, List<Telefone> telefone, Logradouro logradouro, TipoFornecedor dados_Tipo_Fornecedor){
-		super();
-		this.descricao = descricao;
-		this.cnpj = cnpj;
-		this.dados_Tipo_Fornecedor = dados_Tipo_Fornecedor;
-	}
 	
+	public Integer getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+
 	public String getDescricao() {
 		return descricao;
 	}

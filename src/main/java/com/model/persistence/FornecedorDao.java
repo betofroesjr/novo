@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +47,41 @@ public class FornecedorDao  extends GenericDAOImpl<Fornecedor, Long> implements 
 			listaFornecedores = (ArrayList<Fornecedor>) query.getResultList();
 			return listaFornecedores;		
 		}catch(Exception e){
+			return null;
+		}
+	}
+	@Override
+	public Fornecedor buscarPorObjeto(Fornecedor obj) {
+		StringBuilder jpql = new StringBuilder();
+		String descricao = "";
+		if(obj.getDescricao() != null && !obj.getDescricao().equals("")){
+			descricao = " obj.descricao = :descricao ";
+		}
+		String cnpj = "";
+		if(obj.getCnpj() != null && !obj.getCnpj().equals("")){
+			cnpj = " obj.cnpj = :cnpj ";
+		}
+		if(!descricao.equals("") || !cnpj.equals("")){
+			
+			jpql.append("SELECT obj FROM Fornecedor obj where " + descricao + cnpj);
+			TypedQuery<Fornecedor> query = em.createQuery(jpql.toString(), Fornecedor.class);
+			
+			if(!descricao.equals("")){
+				query.setParameter("descricao", obj.getDescricao());				
+			}
+			if(!cnpj.equals("")){
+				query.setParameter("cnpj", obj.getCnpj());				
+			}
+			
+			try {
+				Fornecedor obj2 = query.getSingleResult();			
+				return obj2;
+			}catch (NoResultException e){
+				return null;
+			}catch (Exception e) {
+				return null;
+			}
+		} else {
 			return null;
 		}
 	}

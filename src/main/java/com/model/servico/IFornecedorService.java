@@ -10,4 +10,5 @@ public interface IFornecedorService{
 	List<Fornecedor> listaFornecedoresPorIdTipoFornecedor(Long id);
 	Fornecedor procurarPorId(Long id);
 	Fornecedor procurarPorDescricao(String descricao);
+	Fornecedor buscarPorObjeto(Fornecedor obj);
 }

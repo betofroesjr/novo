@@ -7,4 +7,5 @@ public interface IFornecedorDao extends GenericDAO<Fornecedor, Long>{
 	public void salvar(Fornecedor obj);
 	public Fornecedor procurarPorDescricao(String descricao);	
 	public List<Fornecedor> listaFornecedoresPorIdTipoFornecedor(Long id);
+	public Fornecedor buscarPorObjeto(Fornecedor obj);
 }

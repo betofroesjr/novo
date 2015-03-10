@@ -1,9 +1,11 @@
 package com.model.servico;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.model.entidades.base.Fornecedor;
 import com.model.persistence.IFornecedorDao;
 
@@ -51,5 +53,11 @@ public class FornecedorService implements IFornecedorService{
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Fornecedor> listaFornecedoresPorIdTipoFornecedor(Long id) {
 		return dao.listaFornecedoresPorIdTipoFornecedor(id);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Fornecedor buscarPorObjeto(Fornecedor obj) {
+		return dao.buscarPorObjeto(obj);
 	}
 }

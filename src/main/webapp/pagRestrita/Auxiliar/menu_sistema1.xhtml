@@ -17,7 +17,7 @@
 			</p:submenu>
 			<p:submenu label="Cadastros Base" rendered="#{permissaoCtrl.servicosbase}">
 				<p:submenu label="Manutenção Dados" rendered="#{permissaoCtrl.manutencaoDados}">	                
-	                <!-- <p:menuitem value="Tipo Atendimento" url="/pagRestrita/CadTipoAtendimento.jsf" rendered="#{permissaoCtrl.novotipoatendimento}"/> -->
+	                <p:menuitem value="Tipo Atendimento" url="/pagRestrita/CadFornecedor.jsf"/>
 				</p:submenu>																			
 	        </p:submenu>
    			<p:submenu label="Desenvolvedor" rendered="#{permissaoCtrl.validarUsuarioAdmin}">
@@ -30,7 +30,7 @@
 	        <p:menuitem value="Sair" action="#{loginControlador.sair}" icon="ui-icon-close" />
 	        		      
 	    </p:panelMenu>
-	    <p:panelMenu autoDisplay="false">
+	    <p:panelMenu autoDisplay="true">
 	    </p:panelMenu>
 	</h:form>
 </ui:composition>

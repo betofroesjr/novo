@@ -8,6 +8,7 @@ public class Navegacao {
 	
 	private static final String NOME_OBJETO_SESSAO_LOGRADOURO = "logradouro";
 	private static final String NOME_OBJETO_SESSAO_TELEFONE = "telefone";
+	private static final String NOME_OBJETO_SESSAO_FORNECEDOR = "fornecedor";
 	
 	private static final String CAMINHO_ARQUIVO_PERMISSOES = "/resources/file/permissoes.sql";
 	
@@ -47,4 +48,7 @@ public class Navegacao {
 	public static String getLogin() {
 		return LOGIN;
 	}
+	public static String getNomeObjetoSessaoFornecedor() {
+		return NOME_OBJETO_SESSAO_FORNECEDOR;
+	}	
 }
