@@ -47,7 +47,7 @@
 				        </p:selectOneMenu>
 				        <p:message for="status"/>				        				       
 						
-						<h:outputText value="Tipo do Fornecedor: " />				
+						<!-- <h:outputText value="Tipo do Fornecedor: " />				
 						<p:selectOneMenu id="tipoUsuario" value="#{fornecedorCtrl.editado.tipoUsuario}" effect="fold" 
 			        		var="p" style="width:600px" filter="true" filterMatchMode="startsWith" panelStyle="width:150px" converter="#{tipoUsuarioConversor}"
 			        		requiredMessage="Selecionar uma opção.">
@@ -56,17 +56,15 @@
 				        	<p:column>
 				        		#{p.descricao}
 				        	</p:column>
-				        <f:validateRequired disabled="#{empty param['formGeral:tabView:descricao']}" for="tipoUsuario"/>
-				    	<p:ajax process="@(this)" update="@(#tab01)"/>			            
 			        	</p:selectOneMenu>
-			        	<p:message for="tipoUsuario"/>	
+			        	<p:message for="tipoUsuario"/>	 -->
 							
 					</p:panelGrid>
 					<p:commandButton id="botaoSalvarAlterar" value="#{fornecedorCtrl.valorBotao}" action="#{fornecedorCtrl.salvar}" update=":formGeral:message,@(#formGeral)"/>										
 					<p:commandButton rendered="#{fornecedorCtrl.permissaoExcluir}" value="Excluir" action="#{fornecedorCtrl.remover}" update=":formGeral:message,@(#formGeral)" 
 						onclick="if (!confirm('Confirma a exclusão #{lista.login}?'))return false;"/>											
 					<p:commandButton value="Limpar" action="#{fornecedorCtrl.resetPagina}" immediate="true" process="@(this)" update="@(#formGeral)"/>
-					<p:commandButton value="Visualizar" action="#{fornecedorCtrl.acaoGeraRelatorio}" immediate="true" ajax="false"/>
+					<p:commandButton value="Visualizar" action="#{fornecedorCtrl.acaoGeraRelatorio}" immediate="true" ajax="false" rendered="false"/>
 				</p:tab>
 				<p:tab id="tab02" title="Listar">
 					<h:panelGrid style="height:100%" >
@@ -83,16 +81,16 @@
 					        	</f:facet>
 					        	<p:ajax event="rowSelect" listener="#{fornecedorCtrl.onRowSelect}" update=":formGeral:message,@(#formGeral)" />
         						<p:ajax event="rowUnselect" listener="#{fornecedorCtrl.onRowUnselect}" update=":formGeral:message" />
-					        	<p:column width="500"  headerText="Nome" sortBy="#{lista.nomeCompleto}" filterBy="#{lista.nomeCompleto}" filterMatchMode="contains" filterStyle="width:50%" >
-									<h:outputText value="#{lista.nomeCompleto}" style="width:100%"/>
+					        	<p:column width="500"  headerText="Nome Fornecedor" sortBy="#{lista.descricao}" filterBy="#{lista.descricao}" filterMatchMode="contains" filterStyle="width:50%" >
+									<h:outputText value="#{lista.descricao}" style="width:100%"/>
 								</p:column>	       		       									        				
-								<p:column width="500"  headerText="Login" sortBy="#{lista.login}" filterBy="#{lista.login}" filterMatchMode="contains" filterStyle="width:50%" >
-									<h:outputText value="#{lista.login}" style="width:100%"/>
+								<p:column width="500"  headerText="CNPJ" sortBy="#{lista.cnpj}" filterBy="#{lista.cnpj}" filterMatchMode="contains" filterStyle="width:50%" >
+									<h:outputText value="#{lista.cnpj}" style="width:100%"/>
 								</p:column>	
 								<p:column width="80" sortBy="#{lista.status}" headerText="Status" style="width:50%">				
 									<h:outputText rendered="#{lista.status == 1}" value="Inativo"/>
 									<h:outputText rendered="#{lista.status == 0}" value="Ativo"/>									
-								</p:column>																
+								</p:column>														
 							</p:dataTable>
 						</h:panelGroup>
 					</h:panelGrid>		

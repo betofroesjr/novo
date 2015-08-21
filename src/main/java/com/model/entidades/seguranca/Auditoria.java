@@ -30,7 +30,7 @@ public abstract class Auditoria implements Serializable{
 	private InterligaLogSistemas interligaLogSistemas;
 	
 	public Auditoria() {
-		this.id = 0l;
+		this.id = null;
 		this.interligaLogSistemas = null;
 	}
 

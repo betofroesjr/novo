@@ -173,7 +173,7 @@ public class FornecedorCtrl extends ControladorGenericoCtrl{
 			
 			setPermissaoExcluir(true);
 			setValorBotao(getValorBotaoAlterar());
-			FacesMessage msg = new FacesMessage("Agregado selecionado", this.editado.getDescricao());
+			FacesMessage msg = new FacesMessage("Selecionado", this.editado.getDescricao());
 			FacesContext.getCurrentInstance().addMessage(null, msg);     
 			
 		/*} else {

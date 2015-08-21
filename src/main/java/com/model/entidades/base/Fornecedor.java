@@ -1,5 +1,4 @@
 package com.model.entidades.base;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,16 +22,12 @@ public class Fornecedor extends Auditoria{
 	
 	public Fornecedor(){
 		super();
-		this.descricao = "";
-		this.cnpj = "";
-		this.dados_Tipo_Fornecedor = new TipoFornecedor();
+		this.dados_Tipo_Fornecedor = null;
 	}
-	
 	
 	public Integer getStatus() {
 		return status;
 	}
-
 
 	public void setStatus(Integer status) {
 		this.status = status;
